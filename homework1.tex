@@ -1,0 +1,202 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{xeCJK}
+\setCJKmainfont{Kai}
+
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等热力学与统计物理第一次作业}
+\author{董建宇}
+
+
+\begin{document}
+\maketitle
+
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\section{}
+\begin{enumerate}
+	\item 
+	\begin{proof}
+		设$w = w(x, y)$，两侧微分可得：
+		\[
+			\,d w = \left( \frac{\partial w}{\partial x} \right)_y \,dx + \left( \frac{\partial w}{\partial y} \right)_x \,dy
+		\]
+		则有：
+		\[
+			\left( \frac{\partial x}{\partial y} \right)_w = -\frac{\left( \frac{\partial w}{\partial y} \right)_x}{\left( \frac{\partial w}{\partial x} \right)_y}.
+		\]
+		对$f(x, y, z) = 0$全微分可知：
+		\[
+			df = \left( \frac{\partial f}{\partial x} \right)_{y, z}\,dx + \left( \frac{\partial f}{\partial y} \right)_{z, x}\,dy + \left( \frac{\partial f}{\partial z} \right)_{x, y}\,dz = 0.
+		\]
+		有：
+		\begin{equation*}
+		\begin{aligned}
+			\,dx =& -\frac{\left( \frac{\partial f}{\partial y} \right)_{z, x}\,dy + \left( \frac{\partial f}{\partial z} \right)_{x, y}\,dz}{\left( \frac{\partial f}{\partial x} \right)_{y, z}}, \\
+			\,dy =& -\frac{\left( \frac{\partial f}{\partial x} \right)_{y, z}\,dx + \left( \frac{\partial f}{\partial z} \right)_{x, y}\,dz}{\left( \frac{\partial f}{\partial y} \right)_{z, x}}.
+		\end{aligned}
+		\end{equation*}
+		带入$w = w(x, y)$的全微分式，有：
+		\begin{equation*}
+		\begin{aligned}
+			\,d w =& \frac{\left( \frac{\partial w}{\partial y} \right)_x \left( \frac{\partial f}{\partial x} \right)_{y, z} - \left( \frac{\partial w}{\partial x} \right)_y \left( \frac{\partial f}{\partial y} \right)_{z, x}}{\left( \frac{\partial f}{\partial x} \right)_{y, z}}\,dy - \frac{\left( \frac{\partial w}{\partial x} \right)_y \left( \frac{\partial f}{\partial z} \right)_{x, y}}{\left( \frac{\partial f}{\partial x} \right)_{y, z}}\,dz \\
+			\,d w =& \frac{\left( \frac{\partial w}{\partial x} \right)_y \left( \frac{\partial f}{\partial y} \right)_{z, x} - \left( \frac{\partial w}{\partial y} \right)_x \left( \frac{\partial f}{\partial x} \right)_{y, z}}{\left( \frac{\partial f}{\partial y} \right)_{z, x}}\,dx - \frac{\left( \frac{\partial w}{\partial y} \right)_x \left( \frac{\partial f}{\partial z} \right)_{x, y}}{\left( \frac{\partial f}{\partial y} \right)_{z, x}}\,dz
+		\end{aligned}
+		\end{equation*}
+		则有：
+		\begin{equation*}
+		\begin{aligned}
+			\left( \frac{\partial y}{\partial z} \right)_w =& \frac{\left( \frac{\partial f}{\partial z} \right)_{x, y} \left( \frac{\partial w}{\partial x} \right)_y}{\left( \frac{\partial w}{\partial y} \right)_x \left( \frac{\partial f}{\partial x} \right)_{y, z} - \left( \frac{\partial w}{\partial x} \right)_y \left( \frac{\partial f}{\partial y} \right)_{z, x}} \\
+			\left( \frac{\partial x}{\partial z} \right)_w =& \frac{\left( \frac{\partial f}{\partial z} \right)_{x, y} \left( \frac{\partial w}{\partial y} \right)_x}{\left( \frac{\partial w}{\partial x} \right)_y \left( \frac{\partial f}{\partial y} \right)_{z, x} - \left( \frac{\partial w}{\partial y} \right)_x \left( \frac{\partial f}{\partial x} \right)_{y, z}}
+		\end{aligned}
+		\end{equation*}
+		\[
+			\left( \frac{\partial x}{\partial y} \right)_w \left( \frac{\partial y}{\partial z} \right)_w = \frac{\left( \frac{\partial f}{\partial z} \right)_{x, y} \left( \frac{\partial w}{\partial y} \right)_x}{\left( \frac{\partial w}{\partial x} \right)_y \left( \frac{\partial f}{\partial y} \right)_{z, x} - \left( \frac{\partial w}{\partial y} \right)_x \left( \frac{\partial f}{\partial x} \right)_{y, z}} = \left( \frac{\partial x}{\partial z} \right)_w.
+		\]
+	\end{proof}
+	
+	\item
+	\begin{proof}
+		由于x,y,z满足$f(x, y ,z) = 0$,则有$z = z(x, y)$。两侧微分可得：
+		\[
+			\,dz = \left( \frac{\partial z}{\partial x} \right)_y \,dx + \left( \frac{\partial z}{\partial y} \right)_x \,dy
+		\]
+		则有：
+		\[
+			\left( \frac{\partial x}{\partial y} \right)_z = - \frac{\left( \frac{\partial z}{\partial y} \right)_x}{\left( \frac{\partial z}{\partial x} \right)_y},~~ \left( \frac{\partial y}{\partial x} \right)_z = -\frac{\left( \frac{\partial z}{\partial x} \right)_y}{\left( \frac{\partial z}{\partial y} \right)_x}.
+		\]
+		则有：
+		\[
+			\left( \frac{\partial x}{\partial y} \right)_z \left( \frac{\partial y}{\partial x} \right)_z = 1.
+		\]
+	\end{proof}
+	
+	\item
+	\begin{proof}
+		由(2)中$z = z(x, y)$微分式可知：
+		\[
+			\left( \frac{\partial y}{\partial z} \right)_x = \frac{1}{\left( \frac{\partial z}{\partial y} \right)_x}
+		\]
+		则有：
+		\[
+			\left( \frac{\partial x}{\partial y} \right)_z \left( \frac{\partial y}{\partial z} \right)_x \left( \frac{\partial z}{\partial x} \right)_y = -\frac{\left( \frac{\partial z}{\partial y} \right)_x}{\left( \frac{\partial z}{\partial x} \right)_y}\frac{1}{\left( \frac{\partial z}{\partial y} \right)_x} \left( \frac{\partial z}{\partial x} \right)_y = -1.
+		\]
+	\end{proof}
+	
+	\item (check) 令$x = P$, $y = T$, $z = V$由理想气体状态方程$PV = nRT$得知：
+	\[
+		\left( \frac{\partial P}{\partial T} \right)_V = \frac{nR}{V},~~ \left( \frac{\partial T}{\partial P} \right)_V = \frac{V}{nR}.
+	\]
+	则有：
+	\[
+		\left( \frac{\partial P}{\partial T} \right)_V \left( \frac{\partial T}{\partial P} \right)_V = 1.
+	\]
+	即(2)式成立。
+	\[
+		\left( \frac{\partial T}{\partial V} \right)_P = \frac{P}{nR}, ~~ \left( \frac{\partial V}{\partial P} \right)_T = -\frac{nRT}{P^2}.
+	\]
+	则有：
+	\[
+		\left( \frac{\partial P}{\partial T} \right)_V \left( \frac{\partial T}{\partial V} \right)_P \left( \frac{\partial V}{\partial P} \right)_T = -\frac{nRT}{PV} = -1.
+	\]
+	即(3)式成立。
+
+\end{enumerate}
+
+\section{}
+\begin{enumerate}
+	\item
+	\begin{proof}
+		对于理想气体，在绝热过程中，由热力学第一定律可知：
+		\[
+			dU = C_V\,dT = -p\,dV.
+		\]
+		对理想气体状态方程微分可得：
+		\[
+			nR\,dT = p\,dV + V\,dp.
+		\]
+		两式联立可得：
+		\[
+			\frac{C_p}{C_V} p\,dV + V\,dp = 0.
+		\]
+		令$\gamma = \frac{C_p}{C_V}$，则有
+		\[
+			d\left( pV^\gamma \right) = 0.
+		\]
+		则有
+		\[
+			pV^\gamma = C_1,
+		\]$C_1$为常数。
+	\end{proof}
+	
+	\item
+	\begin{proof}
+		由理想气体状态方程与(1)结果可知
+		\[
+			TV^{\gamma-1} = \frac{C_1}{nR} = C_2
+		\]
+		$C_2$为常数。
+	\end{proof}
+	
+	\item
+	\begin{proof}
+		由理想气体状态方程$pV = nRT$可知
+		\[
+			p^{1-\gamma}T^{\gamma} = \frac{C_1}{(nR)^{\gamma}}
+		\]
+		两侧同时开$1-\gamma$次方，则有：
+		\[
+			pT^{\frac{\gamma}{1-\gamma}} = \left( \frac{C_1}{(nR)^{\gamma}} \right)^{\frac{1}{1-\gamma}} = C_3
+		\]
+		$C_3$为常数。
+	\end{proof}
+	
+	\item 在绝热过程中理想气体从$(P_1, V_1)$到$(P_2, V_2)$做功为：
+	\[
+		W = \int_{V_1}^{V_2} P\,dV = \int_{V_1}^{V_2} \frac{C_1}{V^{\gamma}}\,dV = \frac{C_1}{1-\gamma} \left( V_2^{1-\gamma} - V_1^{1-\gamma} \right) = \frac{P_1V_1-P_2V_2}{\gamma-1}
+	\]
+
+\end{enumerate}
+
+
+\section{}
+\begin{enumerate}
+	\item
+	\begin{proof}
+		设$A \to B$过程吸热$Q_2$,$C \to D$过程放热$Q_1$，则循环效率为：
+		\[
+			\eta = 1 - \frac{Q_1}{Q_2}.
+		\]
+		等温过程$A \to B$过程中，理想气体的内能不变，则吸热为：
+		\[
+			Q_2 = \int_{V_A}^{V_B} \frac{nRT_2}{V} \,dV = nRT_2\ln\frac{V_B}{V_A}.
+		\]
+		等温过程$C \to D$过程中，理想气体内能不变，则放热为：
+		\[
+			Q_1 = \int_{V_D}^{V_C} \frac{nRT_1}{V} \,dV = nRT_1\ln\frac{V_C}{V_D}.
+		\]
+		绝热过程$B \to C$与$D \to A$过程中，有：
+		\[
+			T_2V_B^{\gamma-1} = T_1V_C^{\gamma-1},~T_1V_D^{\gamma-1} = T_2V_A^{\gamma-1}.
+		\]
+		即有：
+		\[
+			\frac{V_B}{V_A} = \frac{V_C}{V_D},~~\frac{Q_1}{Q_2} = \frac{T_1}{T_2}.
+		\]
+		则Carnot循环效率为：
+		\[
+			\eta = 1 - \frac{T_1}{T_2}.
+		\]
+	\end{proof}
+\end{enumerate}
+
+
+\end{document}

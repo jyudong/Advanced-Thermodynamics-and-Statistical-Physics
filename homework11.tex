@@ -1,0 +1,148 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+%\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\allowdisplaybreaks[4] %align公式跨页
+\RequirePackage[most]{tcolorbox}
+\usepackage{xeCJK}
+\setCJKmainfont{Kai}
+
+\geometry{left=0.6in, right=0.5in, top=1in, bottom=1in}
+
+
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等热力学与统计物理第十一次作业}
+\author{董建宇}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[1.]
+
+\item 考虑近邻作用的铁磁性Ising模型，写出自由能
+\[
+	F_I(M) \equiv -\frac{kT}{\mathcal{N}} \ln Q_{N_\uparrow}.
+\]
+在零磁场下展开到$M^4$的形式，讨论此展开式在$T>T_c$和$T<T_c$的图像并求出两种情况下$F_I(M)$的最小值和相应的磁化强度$M$。（此类展开只适用于临界温度附近，故展开式中各项的系数只需要保留到$\vert T-T_c \vert$的领头阶。）
+\begin{tcolorbox}[breakable, colframe = black, colback = black!5!white]
+对于近邻作用的Ising模型，有：
+\[
+	Q_{N_\uparrow} = e^{-\frac{U_I}{kT}} \frac{\mathcal{N}!}{N_\uparrow!N_\downarrow!}.
+\]
+当$\mathcal{N},N_\uparrow,N_\downarrow$充分大时，可以利用Stirling公式得：
+\[
+	\frac{1}{\mathcal{N}}\ln Q_{N_\uparrow} = -\frac{U_I}{\mathcal{N}kT} - \frac{N_\uparrow}{\mathcal{N}} \ln\frac{N_\uparrow}{\mathcal{N}} - \frac{N_\downarrow}{\mathcal{N}} \ln\frac{N_\downarrow}{\mathcal{N}}.
+\]
+磁化强度为：
+\[
+	M = \frac{1}{\mathcal{N}}(N_\uparrow-N_\downarrow)
+\]
+可得：
+\[
+	\frac{1}{\mathcal{N}}\ln Q_{N_\uparrow} = \frac{\mu H}{kT}M -\frac{n\varepsilon M^2}{2kT} - \frac{1+M}{2}\ln\frac{1+M}{2} - \frac{1-M}{2}\ln\frac{1-M}{2}.
+\]
+则自由能为：
+\[
+	F_I(M) = -\frac{kT}{\mathcal{N}}\ln Q_{N_\uparrow} = -\mu HM + \frac{1}{2}n\varepsilon M^2 + \frac{kT(1+M)}{2}\ln\frac{1+M}{2} + \frac{kT(1-M)}{2}\ln\frac{1-M}{2}
+\]
+对于铁磁材料，$\varepsilon<0$，则临界温度为：$T_c = -n\varepsilon/k$。在零磁场下，展开式系数只保留到$\vert T - T_c \vert$的领头阶，则有：
+\[
+	F_I(M) = -kT\ln2 + \frac{1}{2}k(T-T_c) M^2 + \frac{1}{12}kT M^4.
+\]
+对$M$求导得：
+\[
+	\frac{\partial F_I(M)}{\partial M} = k(T-T_c)M + \frac{1}{3}kTM^3.
+\]
+当$T>T_c$时，有$\frac{\partial F_I(M)}{\partial M} \geq 0$，即当$M = 0$时$F_I(M)$取最小值为$-kT\ln2$。 \\
+当$T<T_c$时，一阶导数为0可得：
+\[
+	M = 0,~\text{or}~\pm\sqrt{\frac{3(T_c-T)}{T}}.
+\]
+此时$F_I(M)$最小值为：$-kT\ln2-\cfrac{3}{4}\cfrac{k(T_c-T)^2}{T}$，此时$M = \pm \sqrt{\frac{3(T_c-T)}{T}}$。
+
+%当$T>T_c$时，一阶导数恒大于0，即不存在$F_I(M)$的最小值。当$T<T_c$时，使$F_I(M)$取最小值时$M = \sqrt{\frac{3(T_c-T)}{T}}$
+\end{tcolorbox}
+
+
+\item 求出具有周期边界条件和仅有近邻相互作用$u$的一维格气巨配分函数$\mathcal{Q}(y) = 0$的根$y_1,y_2,\dots,y_{\mathcal{N}}$，并讨论在$u>0$和$u<0$两种情况下根在复平面上的分布。
+\begin{tcolorbox}[breakable, colframe = black, colback = black!5!white]
+具有周期边界条件同时仅有紧邻相互作用的一维Ising模型的配分函数为：
+\[
+	Q_I = \lambda_+^{\mathcal{N}} + \lambda_-^{\mathcal{N}}.
+\]
+其中
+\begin{align*}
+	\lambda_\pm =& \frac{1}{2}\left[ x_I\left( y_I+\frac{1}{y_I} \right) \pm \sqrt{x_I^2\left( y_I - \frac{1}{y_I} \right)^2 + \frac{4}{x_I^2}} \right], \\
+	x_I =& e^{-\frac{1}{kT}\varepsilon}, \\
+	y_I =& e^{\frac{\mu H}{kT}}.
+\end{align*}
+对应一维格气巨配分函数可表示为：
+\[
+	\mathcal{Q} = Q_I e^{\frac{\mathcal{N}(\mu H+\varepsilon)}{kT}} = (\lambda_+^\mathcal{N} + \lambda_-^\mathcal{N}) e^{\frac{\mathcal{N}(\mu H+\varepsilon)}{kT}} = e^{\frac{\mathcal{N}\varepsilon}{kT}} y_I^\mathcal{N}(\lambda_+^\mathcal{N} + \lambda_-^\mathcal{N}).
+\]
+令巨配分函数为0，则有：
+\[
+	\lambda_+ = \lambda_- \exp\left( i(2k+1)\pi/N \right)
+\]
+其中$k \in N,~y_I^2 = ye^{-u/kT}$，则$y$满足的方程为：
+\[
+	y^2 + 2y\exp\left( \frac{u}{kT} \right)\left[ 1+\exp\left( \frac{u}{kT} \right) \cos^2\left( \frac{(2k+1)\pi}{2N} \right) \left( \exp(u/kT)-1 \right) \right] + \exp\left( \frac{2u}{kT} \right) = 0.
+\]
+当$u<0$时，有：
+\begin{align*}
+	y =& -\exp\left( \frac{u}{kT} \right)\left[ 1 + 4\exp\left( \frac{u}{kT} \right) \cos^2\frac{(2k+1)\pi}{2N} \left( \exp\left( \frac{u}{kT} \right) - 1 \right) \right] \\
+	&\pm i \exp\left( \frac{u}{kT} \right) \sqrt{1 - \left[ 1+4\exp\left( \frac{u}{kT} \right) \cos^2\frac{(2k+1)\pi}{2N} \left( \exp\left( \frac{u}{kT} \right) - 1 \right) \right]^2}
+\end{align*}
+此时，所有根分布在半径为$\exp(u/kT)$的圆上。 \\
+当$u>0$时，有：
+\begin{align*}
+	y =& -\exp\left( \frac{u}{kT} \right)\left[ 1 + 4\exp\left( \frac{u}{kT} \right) \cos^2\frac{(2k+1)\pi}{2N} \left( \exp\left( \frac{u}{kT} \right) - 1 \right) \right] \\
+	&\pm \exp\left( \frac{u}{kT} \right) \sqrt{\left[ 1+4\exp\left( \frac{u}{kT} \right) \cos^2\frac{(2k+1)\pi}{2N} \left( \exp\left( \frac{u}{kT} \right) - 1 \right) \right]^2 - 1}
+\end{align*}
+%因为有：
+%\[
+%	y_I\lambda_\pm = \frac{1}{2}\left[ x_I(y_I^2+1) \pm \sqrt{x_I^2 \left( y_I^2-1 \right)^2 + \frac{4y_I^2}{x_I^2}} \right]
+%\]
+%则巨配分函数可以写为：
+%\[
+%	\mathcal{Q} = e^{\frac{\mathcal{N}\varepsilon}{kT}} \sum_{n=0}^{\mathcal{N}} \binom{\mathcal{N}}{n} 
+%\]
+\end{tcolorbox}
+%\lfloor \mathcal{N}/2 \rfloor
+
+\item 当$\mathcal{N}\to\infty$时，证明上一题讨论的一维格气的压强为
+\[
+	\frac{P}{kT} = \ln \left[ 1+\frac{y}{x} + \sqrt{\left( 1-\frac{y}{x} \right)^2 + 4y} \right] - \ln2
+\]
+并求出粒子的数密度。其中
+\[
+	x = e^{\frac{u}{kT}}
+\]
+\begin{tcolorbox}[breakable, colframe = black, colback = black!5!white]
+当$\mathcal{N}\to \infty$时，配分函数为：
+\[
+	Q_I = \lambda_+^\mathcal{N} + \lambda_-^\mathcal{N} \approx \lambda_+^\mathcal{N}
+\]
+则巨配分函数为：
+\[
+	\mathcal{Q} = e^{\frac{\mathcal{N}\varepsilon}{kT}} y_I^{\mathcal{N}} \lambda_+^\mathcal{N} = \frac{1}{2}\left[ 1+\frac{y}{x} + \sqrt{\left( 1-\frac{y}{x} \right)^2 + 4y} \right].
+\]
+则压强为：
+\[
+	\frac{P}{kT} = \ln \mathcal{Q} =  \ln \left[ 1+\frac{y}{x} + \sqrt{\left( 1-\frac{y}{x} \right)^2 + 4y} \right] - \ln2.
+\]
+粒子数密度为：
+\[
+	n = y\frac{\partial }{\partial y}\ln \mathcal{Q} = y\frac{\frac{1}{x} + \frac{-\frac{1}{x}(1-\frac{y}{x}) + 4}{\sqrt{( 1-\frac{y}{x})^2 + 4y}}}{1+\frac{y}{x} + \sqrt{\left( 1-\frac{y}{x} \right)^2 + 4y}}
+\]
+\end{tcolorbox}
+
+\end{enumerate}
+
+\end{document}

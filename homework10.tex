@@ -1,0 +1,94 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\allowdisplaybreaks[4] %align公式跨页
+\RequirePackage[most]{tcolorbox}
+\usepackage{xeCJK}
+\setCJKmainfont{Kai}
+
+\geometry{left=0.4in, right=0.35in, top=1in, bottom=1in}
+
+
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等热力学与统计物理第十次作业}
+\author{董建宇}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[1.]
+
+\item 令$\mathcal{Q}_G$是具有两体势能为：
+\[
+	u(r) = \left\{ \begin{array}{ll}
+		\infty, & \text{如果$r=0$}; \\
+		u_l, & \text{如果$r=$第$l$近邻。}
+	\end{array} \right.
+\]
+的格气的巨配分函数。 \\
+证明：只要令
+\[
+	N = N_{\uparrow}
+\]
+\[
+	y = \exp\left\{ \frac{1}{kT} \left( 2\mu H - \sum_l n_l [\varepsilon_l(\uparrow \downarrow) - \varepsilon_l(\uparrow\uparrow)] \right) \right\}
+\]
+\[
+	u_l = 2[\varepsilon_l(\uparrow) - \varepsilon_l(\uparrow\downarrow)]
+\]
+则对于Ising模型配分函数$Q_I$格气配分函数可以表示为
+\[
+	\mathcal{Q}_G = Q_I \exp\left\{ \frac{\mathcal{N}}{kT} \left[ \mu H + \frac{1}{2}\sum_l n_l\varepsilon_l(\uparrow\uparrow) \right] \right\}
+\]
+其中$\mathcal{N}$是格点总数，$y$是格气的易逸度，$\varepsilon_l(\uparrow\uparrow) = \varepsilon(\downarrow\downarrow)$表示Ising模型中第l近邻自旋平行的相互作用能，$\varepsilon_l(\uparrow\downarrow)$是相应的自旋反平行的作用能，$n_l$为每一格点第$l$近邻的数目。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+Ising模型能量为：
+\[
+	U_I = \sum_l [N_{\uparrow\uparrow}^l \varepsilon_l(\uparrow\uparrow) + N_{\downarrow\downarrow}^l \varepsilon_l(\downarrow\downarrow) + N_{\uparrow\downarrow}^l \varepsilon_l(\uparrow\downarrow)] + \mu H (N_\uparrow - N_\downarrow).
+\]
+设每个格点第$l$近邻的数目为$n_l$，则有：
+\begin{align*}
+	2N_{\uparrow\uparrow}^l + N_{\uparrow\downarrow} = n_l N_\uparrow; \\
+	2N_{\downarrow\downarrow}^l + N_{\uparrow\downarrow} = n_l N_\downarrow.
+\end{align*}
+同时，有隔点数目为$\mathcal{N}$:
+\[
+	N_\uparrow + N_\downarrow = \mathcal{N}
+\]
+则可以用$N_\uparrow$和$N_{\uparrow\uparrow}^l$表示Ising模型能量：
+\small
+\[
+	U_I = 2\sum_l N_{\uparrow\uparrow}^l [\varepsilon^l(\uparrow\uparrow) - \varepsilon^l(\uparrow\downarrow)] + N_\uparrow^l \left\{ \sum_l n_l [\varepsilon^l(\uparrow\uparrow) - \varepsilon^l(\uparrow\downarrow)] - 2\mu H \right\} + \mathcal{N} \left[ \frac{1}{2}\sum_l n_l \varepsilon_l(\uparrow\uparrow) + \mu H \right]
+\]
+\normalsize
+则Ising模型的巨配分函数为
+\[
+	Q_I = \sum e^{-U_I/kT}.
+\]
+其中求和是对所有自旋分布求和。 \\
+格气的巨配分函数可表为
+\[
+	Q_G = \sum_N y^N \frac{1}{N!} \sum_{\text{N个可区分粒子的分布}} e^{-U_G/kT} = \sum_N y^N \sum_{\text{N个不可区分粒子的分布}} e^{-\sum_l n_{pp}^lu_l /kT}.
+\]
+令$N = N_\uparrow$, $n_{pp}^l = N_{\uparrow\uparrow}^l$, $y = \exp\{ (2\mu H - \sum_l n_l[\varepsilon_l(\uparrow\downarrow - \varepsilon_l(\uparrow\uparrow))])/kT \}$, $u_l = 2[\varepsilon_l(\uparrow\uparrow) - \varepsilon_l(\uparrow\downarrow)]$
+则可以计算：
+\small
+\begin{align*}
+	Q_G =& \sum_{N_\uparrow = 1}^\mathcal{N} \exp \left\{ \frac{N_\uparrow}{kT}(2\mu H - \sum_l n_l[\varepsilon_l(\uparrow\downarrow) - \varepsilon_l(\uparrow\uparrow)]) \right\} \sum_{\text{$N_\uparrow$个$\uparrow$的分布}} \exp\left\{ -\frac{1}{kT} \sum_l N_{\uparrow\uparrow}^l 2[\varepsilon_l(\uparrow\uparrow) - \varepsilon_l(\uparrow\downarrow)] \right\} \\
+	=& \sum_{\text{$\uparrow$的分布}}\exp\left\{ -\frac{1}{kT} \left[ \sum_l N_{\uparrow\uparrow}^l 2[\varepsilon_l(\uparrow\uparrow)-\varepsilon_l(\uparrow\downarrow)] - N_\uparrow [(\varepsilon_l(\uparrow\uparrow)-\varepsilon_l(\uparrow\downarrow))] + 2\mu H \right] \right\} \\
+	=& \sum \exp \left\{ \frac{\mathcal{N}}{kT} \left[ \mu H + \frac{1}{2} \sum_l n_l \varepsilon_l(\uparrow\uparrow) \right] - \frac{1}{kT} U_I \right\} \\
+	=& Q_I \exp \left\{ \frac{\mathcal{N}}{kT} \left[ \mu H + \frac{1}{2}\sum_l n_l \varepsilon_l(\uparrow\uparrow) \right] \right\}
+\end{align*}
+
+
+\end{tcolorbox}
+
+\end{enumerate}
+
+\end{document}

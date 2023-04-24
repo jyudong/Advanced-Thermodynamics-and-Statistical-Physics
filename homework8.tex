@@ -1,0 +1,113 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\allowdisplaybreaks[4] %align公式跨页
+\RequirePackage[most]{tcolorbox}
+\usepackage{xeCJK}
+\setCJKmainfont{Kai}
+
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等热力学与统计物理第八次作业}
+\author{董建宇}
+
+\begin{document}
+\maketitle
+
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\section{Liouville定理的另一种证法：令$\omega_t$为某一组系统在时间t占据的相空间体积。用正则运动方程证明：
+\[
+	\frac{d\omega_t}{dt} = 0
+\]
+提示：考虑$\omega_{t+dt} - \omega_t$
+}
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+由于$\omega_t$为某一组系统相空间中的体积，则有：
+\[
+	\omega_t = \int \prod_{i=1}^N \,dp_i\,dq_i.
+\]
+%则可以计算：
+%\[
+%	\frac{d\omega}{dt} = \sum_{j=1}^N \int \prod_{i\neq j} \,dp_i\,dq_i \frac{d}{dt}(\,dp_j\,dq_j) = \sum_{j=1}^N \int \prod_{i\neq j} \,dp_i\,dq_i (\,d\dot{p}_j \,dq_j + \,dp_j\,d\dot{q}_j).
+%	%\sum_{j=1}^{N} \int \frac{\,dp_j}{}\prod_{k\neq j}\,dp_k \prod_{i=1}^N \,dq_i + \sum_{j=1}^{N} \int \prod_{k=1}^N \,dp_k \prod_{i\neq j} \,dq_i
+%\]
+从时间t到时间t+dt，发生如下演化：
+\[
+	q_i' = q_i + \dot{q}_i\,dt, ~~ p_i' = p_i + \dot{p}_i\,dt.
+\]
+正则运动方程为：
+\[
+	\dot{p}_j = -\frac{\partial H}{\partial q_j}, ~~ \dot{q}_j = \frac{\partial H}{\partial p_j}.
+\]
+%带入$\omega_t$对时间的导数可得：
+%\begin{align*}
+%	\frac{d\omega}{dt} =& \sum_{j=1}^N \int \prod_{i\neq j} \,dp_i\,dq_i \left( -\,d\frac{\partial H}{\partial q_j} \,dq_j + \,dp_j\,d\frac{\partial H}{\partial p_j} \right) \\
+%	=& \sum_{j=1}^N \int \prod_{i\neq j}\,dp_i\,dq_i \,dp_j\,dq_j\left( \frac{\partial^2 H}{\partial p_j \partial q_j} - \frac{\partial^2 H}{\partial q_j \partial p_j} \right) \\
+%	=& 0.
+%\end{align*}
+%其中利用了$\frac{\partial^2 H}{\partial p_j \partial q_j} = \frac{\partial^2 H}{\partial q_j \partial p_j}$。
+则可以计算$\omega_{t+dt}$:
+\[
+	\omega_{t+dt} = \int \prod_{i=1}^N \,dp_i'\,dq_i' = \int \prod_{i=1}^N \vert J \vert \,dp_i\,dq_i
+\]
+其中Jacobe行列式为：
+\begin{align*}
+	J =& \frac{\partial (p_1', \dots; q_1', \dots)}{\partial (p_1, \dots; q_1, \dots)} = \prod_{i} \left( 1+\frac{\partial \dot{p}_i}{\partial p_i}\,dt \right) \left( 1+\frac{\partial \dot{q}_i}{\partial q_i}\,dt \right) \\ 
+	=& 1 + \sum_{i=1}^N \left( \frac{\partial \dot{p}_i}{\partial p_i} + \frac{\partial \dot{q}_i}{\partial q_i} \right)\,dt + \mathcal{O}(t^2) \\
+	=& 1 + \sum_{i=1}^N \left( -\frac{\partial^2 H}{\partial q_i \partial p_i} + \frac{\partial^2 H}{\partial p_i \partial q_i} \right) \,dt + \mathcal{O}(t^2) \\
+	=& 1 + \mathcal{O}(t^2).
+\end{align*}
+即有：
+\[
+	\frac{d\omega_t}{dt} = \lim_{dt\to 0} \frac{\omega_{t+dt} - \omega_t}{dt} = 0.
+\]
+\end{tcolorbox}
+
+\section{体积为V的容器盛有分子数密度为$\rho$的气体，假设个分子独立的随机运动。 \\
+(1) 证明在容器内一小体积$v<<V$内出现n个分子的几率$\mathbf{P}_n$近似的由Poisson分布给出，即
+\[
+	P_n = \frac{1}{n!}(\rho v)^n e^{-\rho v}
+\]
+(2) 如果$\rho = 2.5\times 10^{19}cm^{-3}$,试估计当$v = 1nm^3$和$v = 1cm^3$时v内无分子的几率。}
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+(1)根据题意假设，分子独立随机运动，则每一个分子出现在小体积$v$内的概率均相等，为
+\[
+	p = \frac{v}{V}.
+\]
+容器内总分子数为：
+\[
+	N = \rho V.
+\]
+则在小体积内恰好出现n个分子的几率为：
+\[
+	\mathbf{P}_n = \binom{N}{n}p^n(1-p)^{N-n} = \frac{N!}{n!(N-n)!}\left( \frac{\rho v}{N} \right)^n \left( 1 - \frac{\rho v}{N} \right)^{N-n}.
+\]
+当$N>>n$时，可去$N \to \infty$的极限，则有：
+\begin{align*}
+	\mathbf{P}_n &= \lim_{N\to \infty} \frac{N!}{n!(N-n)!}\left( \frac{\rho v}{N} \right)^n \left( 1 - \frac{\rho v}{N} \right)^{N-n} \\
+	&= \frac{1}{n!}(\rho v)^n \lim_{N\to \infty} \frac{ \prod\limits_{i=1}^n (N-n+1)}{N^n} \left( 1 - \frac{\rho v}{N} \right)^N \\
+	&= \frac{1}{n!}(\rho v)^n\times 1 \times e^{-\rho v} \\
+	&= \frac{1}{n!}(\rho v)^n e^{-\rho v}.
+\end{align*}
+其中，利用了$e^x = \lim\limits_{n\to \infty} \left( 1 + \frac{x}{n} \right)^n$. \\
+(2) 当$v = 1nm^3$时，无分子的概率为：
+\[
+	\mathbf{P}_1 = e^{-2.5\times 10^{-2}} \approx 0.9753
+\]
+当$v = 1cm^3$时，无分子的几率为：
+\[
+	\mathbf{P}_2 = e^{-2.5\times 10^{19}}
+\]
+\end{tcolorbox}
+
+\end{document}

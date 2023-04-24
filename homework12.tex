@@ -1,0 +1,118 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+%\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\allowdisplaybreaks[4] %align公式跨页
+\RequirePackage[most]{tcolorbox}
+\usepackage{xeCJK}
+\setCJKmainfont{Kai}
+
+\geometry{left=0.6in, right=0.5in, top=1in, bottom=1in}
+
+
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等热力学与统计物理第十二次作业}
+\author{董建宇}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[1.]
+
+\item 考虑硬球势
+\begin{enumerate}[i)]
+
+\item 证明两体散射的$s$波相移为
+\[
+	\delta_0(k) = -ka
+\]
+其中$a$为硬球直径。
+
+\item 证明对于自旋为零的Bose气体
+\[
+	b_2 = \frac{1}{\lambda^3} \left[ 2^{-5/2} - \frac{2a}{\lambda} + \mathcal{O}\left( \frac{a^5}{\lambda^5} \right) \right]
+\]
+
+\end{enumerate}
+提示：对于硬球散射，轨道角动量为$l$的相移的低能行为是
+\[
+	\delta_l(k) \thicksim (ka)^{2l+1}.
+\]
+
+\begin{tcolorbox}[breakable, colframe = black, colback = black!5!white]
+\begin{enumerate}[i)]
+\item 硬球势为：
+\[
+	U(r) = \left\{ \begin{array}{ll}
+		\infty, & r \leq a; \\
+		0, & r>a.
+	\end{array} \right.
+\]
+体系Hamiltonian可以写为：
+\[
+	H = \frac{p^2}{2m} + U(r).
+\]
+令$V(r) = \frac{2m}{\hbar^2}U(r)$，则Sch\"ordinger方程可以写为：
+\[
+	(\nabla^2+k^2)\psi(r) - V(r)\psi(r) = 0.
+\]
+利用分离变量法，可得：
+\[
+	\psi(r) = \sum_l R_l(r) Y_{ll}(\theta,\phi) = \sum_l \frac{u_l(r)}{r}Y_{lm}(\theta,\phi).
+\]
+其中$u_l(r)$满足的方程为：
+\[
+	-\frac{d^2}{dr^2}u_l(r) + \left[ \frac{l(l+1)}{r^2} + V(r) - k^2 \right] u_l(r) = 0.
+\]
+对于$s$波，有$l=0$，在$r>a$区域内，方程为：
+\[
+	\frac{d^2}{dr^2}u_0(r) + k^2 u_0(r) = 0.
+\]
+可以解得：
+\[
+	u_0(r) = A_0\sin(kr+\delta_0).
+\]
+利用边界条件$u_0(r=a) = 0$可得：
+\[
+	\delta_0 = -ka.
+\]
+
+\item 对于自旋为零的 Bose 气体，根据 Beth-Uhlenbeck 公式
+\[
+b_2^S=b_2^{S(0)}+\frac{2^{3/2}}{\lambda^3} \left[\sum_{\text{even }l}e^{-\beta\varepsilon_B} + \frac{1}{\pi}\sum_{\text{even }l}(2l+1)\int_0^{\infty}\mathrm{d}k\,e^{-\frac{\beta}{m}\hbar^2k^2}\frac{\mathrm{d}\delta_l}{\mathrm{d}k}\right],
+\]
+其中
+\[
+	b_2^{S(0)}=\frac{1}{2^{5/2}\lambda^3},
+\]
+由于气体原子的势能是硬球势，所以不存在束缚态，中括号中第一个求和式
+\[
+	\sum_{\text{even }l}e^{-\beta\varepsilon_B}=0,
+\]
+中括号中第二个求和式
+\begin{align*}
+	&\frac{1}{\pi}\sum_{\text{even }l}(2l+1)\int_0^{\infty}\mathrm{d}k\,e^{-\beta\hbar^2k^2}\frac{\mathrm{d}\delta_l}{\mathrm{d}k} \\
+	=&\frac{1}{\pi}\int_0^{\infty}\mathrm{d}k\,e^{-\beta\hbar^2k^2}\frac{\mathrm{d}\delta_0}{\mathrm{d}k}+\frac{1}{\pi}\sum_{l=2,4,6,\cdots}(2l+1)\int_0^{\infty}\mathrm{d}k\,e^{-\beta\hbar^2k^2}\frac{\mathrm{d}\delta_l}{\mathrm{d}k}\\
+	\approx&\frac{1}{\pi}\int_0^{\infty}\mathrm{d}k\,e^{-\frac{\beta}{m}\hbar^2k^2}\frac{\mathrm{d}(-ka)}{\mathrm{d}k}+\frac{1}{\pi}\sum_{l=2,4,6,\cdots}(2l+1)\int_0^{\infty}\mathrm{d}k\,e^{-\frac{\beta}{m}\hbar^2k^2}\frac{\mathrm{d}(ka)^{2l+1}}{\mathrm{d}k}\\
+	=&-\frac{a}{\pi}\int_0^{\infty}\mathrm{d}k\,e^{-\frac{\beta}{m}\hbar^2k^2}+\frac{1}{\pi}\sum_{l=2,4,6,\cdots}a^{2l+1}(2l+1)^2\int_0^{\infty}\mathrm{d}k\,e^{-\frac{\beta}{m}\hbar^2k^2}k^{2l}\\
+	=&-\frac{a}{\pi}\frac{1}{2}\sqrt{\frac{m\pi}{\beta\hbar^2}}+\frac{1}{\pi}\sum_{l=2,4,6,\cdots}a^{2l+1}(2l+1)^2\int_0^{\infty}\mathrm{d}k\,e^{-\beta\hbar^2k^2}k^{2l}\\
+	=&-\frac{a}{\sqrt{2}\lambda}+O\left(\frac{a^5}{\lambda^5}\right).
+\end{align*}
+因此，
+\[
+	b_2=\frac{1}{\lambda^3}\left[2^{-5/2}-\frac{2a}{\lambda}+O\left(\frac{a^5}{\lambda^5}\right)\right].
+\]
+
+\end{enumerate}
+\end{tcolorbox}
+
+
+\end{enumerate}
+
+\end{document}

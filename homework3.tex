@@ -1,0 +1,177 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\RequirePackage[most]{tcolorbox}
+\usepackage{xeCJK}
+\setCJKmainfont{Kai}
+
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等热力学与统计物理第三次作业}
+\author{董建宇}
+
+
+\begin{document}
+\maketitle
+
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\begin{enumerate}[1]
+	\item 证明大整数N阶乘的Stirling公式
+	\[
+		\ln N! = N(\ln N - 1) + \mathcal{O}(\ln N)
+	\]
+	其中$\mathcal{O}(\ln N)$表示误差与$\ln N$同阶。(一个简单的证明方法是考虑用矩形法近似积分$\int_1^{N} \,dx\ln x.$)
+	\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+	使用分部积分计算可知：
+	\[
+		\int_1^N \,dx \ln x = x\ln x \vert_1^{N} - \int_1^N \frac{1}{x} x\,dx = N\ln N - N.
+	\]
+	将积分区域划分为$(N-1)$份长度为$1$的区间，则积分近似为：
+	\[
+		\int_1^N \,dx \ln x \approx \sum_{i=1}^{N} \ln i = \ln N!.
+	\]
+	要证明误差与$\ln N$同阶，即证明存在$x \in R$，当$N$充分大时满足
+	\[
+		\ln N! - N\ln N + N = x\ln N.
+	\]
+	令$g(N) = \ln N! - N\ln N + N$，则有：
+	\[
+		g(N+1) - g(N) = 1 - N\ln (1+1/N) > 0.
+	\]
+	即$g(N)$为单调递增数列，$g(N) \geq g(1) = 1$. \\
+	令$f_{N}(x) = \ln N! - (N+x)\ln N + N$，则有：
+	\[
+		\frac{df_{N}(x)}{dx} = -\ln N < 0
+	\]
+	则$f_{N}(x)$为单调递减函数，$f_{N}(0) = g(N) > 0$,当$x = 2$时，
+	\[
+		f_N(2) = \ln N! - (N+2)\ln N + N.
+	\]
+	计算差分
+	\[
+		f_{N+1}(2) - f_N(2) = 1 - \ln\left( 1+\frac{1}{N} \right)^N -2\ln\left( 1+\frac{1}{N} \right) < 0.
+	\]
+	则数列$f_N(2)$为单调递减数列。
+	\[
+		f_3(2) = \ln 3! - 5\ln 3 + 3 \approx -0.7 < 0.
+	\]
+	即证明了对于充分大的$N$，存在$x_0 \in (0,2)$，满足
+	\[
+		f_N(x_0) = 0.
+	\]
+	即有
+	\[
+		\ln N! = N(\ln N - 1) + \mathcal{O}(\ln N).
+	\]
+	\end{tcolorbox}
+
+	\item 考虑由$M$个相同的$S$系统，$M'$个相同的$S'$系统等等组成的一个正则系宗。系宗中的系统处在不同的位置但相互热接触。令系统$S$, $S'$,$\cdots$的Hamiltonian为$H$, $H'$, $\cdots$,其本征态和本征能量由下列方程给出
+	\begin{align*}
+		&H\psi_j = E_j\psi_j \\
+		&H'\psi_j' = E_j'\psi_j' \\
+		&\cdots \cdots
+	\end{align*}
+	证明：找到某一特定系统$S$处于$\psi_j$的状态的几率是
+	\[
+		P_j = \frac{1}{Q}e^{-\beta E_j}
+	\]
+	找到某一特定系统$S$处于$\psi_j$的状态的几率是
+	\[
+		P_j' = \frac{1}{Q'}e^{-\beta E_j'}
+	\]
+	其中$Q = \sum_j e^{-\beta E_j}$, $Q' = \sum_j e^{-\beta E_j'}$.
+	\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+	系统总Hamiltonian为：
+	\[
+		H_0 = H + H'.
+	\]
+	令$M_j$为处于$H$的本征态对应能量$E_j$的系统数目，$M_j'$为处于$H'$的本征态对应能量$E_j'$的系统数目，则有:
+	\begin{align*}
+		&\sum_j M_j = M, \\
+		&\sum_j M_j' = M', \\
+		&\sum_j M_jE_j + \sum_j M_j'E_j' = \mathcal{E}.
+	\end{align*}
+	系统对应$\{ M_j, M_j' \}$的状态数为：
+	\[
+		\Omega\{ M_j, M_j' \} = \frac{M!}{\prod_j M_j!}\frac{M'!}{\prod_jM_j'!}.
+	\]
+	则有：
+	\[
+		\ln \Omega = \ln M! - \sum_j \ln M_j! + \ln M'! - \sum_j \ln M_j'!.
+	\]
+	引入不定乘子$\alpha$,$\alpha'$,$\beta$，则有：
+	\begin{align*}
+		&\frac{\partial}{\partial M_j} \left( \ln \Omega + \alpha M + \alpha' M' + \beta \mathcal{E} \right) = 0; \\ 
+		&\frac{\partial}{\partial M_j'} \left( \ln \Omega + \alpha M + \alpha' M' + \beta \mathcal{E} \right) = 0.
+	\end{align*}
+	利用Stirling公式可得：
+	\[
+		M_j = e^{-\alpha-\beta E_j}, ~ M_j' = e^{-\alpha'-\beta E_j'}.
+	\]
+	则找到某一特定系统$S$处于$\psi_j$状态的几率为：
+	\[
+		P_j = \frac{M_j}{\sum_j M_j} = \frac{e^{-\beta E_j}}{Q}.
+	\]
+	找到某一特定系统$S'$处于$\psi'$状态的几率是
+	\[
+		P_j' = \frac{M_j'}{\sum_j M_j'} = \frac{e^{-\beta E_j'}}{Q'}.
+	\]
+	\end{tcolorbox}
+	
+	\item 证明巨正则系综的最可几分布内粒子数涨落为
+	\[
+		\frac{\Delta N}{\langle N \rangle} = \sqrt{\frac{kT\rho \kappa_T}{\langle N \rangle}}
+	\]
+	其中$\rho = \frac{\langle N \rangle}{V}$为密度， $\Delta N^2 = (N - \langle N \rangle)^2$的平均值（均方偏差），$\kappa_T$为等温压缩系数。由此可见$\kappa_T > 0$。
+	\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+	在巨正则系统中，系统具有$N$个粒子且处于$H(N)$的本征态$\psi_{j(N)}$的几率为：
+	\[
+		P_{j(N)} = \frac{1}{Q}e^{-\beta E_{j(N)} - \gamma N}.
+	\]
+	则可以计算:
+	\[
+		\langle N \rangle = \frac{\sum_N \sum_{j(N)} Ne^{-\beta E_{j(N)} - \gamma N}}{Q}.
+	\]
+	\begin{align*}
+		-\frac{\partial \langle N \rangle}{\partial \gamma} &= -\frac{\partial }{\partial \gamma}\left( \frac{\sum_{N}\sum_{j(N)} Ne^{-\beta E_{j(N)} - \gamma N}}{Q} \right) \\
+		&= \frac{Q\sum_N \sum_{j(N)} N^2e^{-\beta E_{j(N)} - \gamma N} - \left( \sum_N\sum_{j(N)} N e^{-\beta E_{j(N)} - \gamma N} \right)^2}{Q^2} \\
+		&= \langle N^2 \rangle - \langle N \rangle^2 \\
+		&= \Delta N^2.
+	\end{align*}
+	利用$\gamma = -\frac{\mu}{kT}$,有：
+	\[
+		\Delta N^2 = kT \left( \frac{\partial \langle N \rangle}{\partial \mu} \right)_{T,V}.
+	\]
+	由吉布斯自由能全微分可知：
+	\[
+		dG = -S\,dT + V\,dP + \mu\,d\langle N \rangle = \mu\,d\langle N \rangle + \langle N \rangle \,d\mu.
+	\]
+	则有：
+	\[
+		\,d\mu = \frac{V}{\langle N \rangle}\,dP - \frac{S}{\langle N \rangle}\,dT = v\,dp - s\,dT.
+	\]
+	其中$\mu$，$v$和$s$为单个粒子的化学式，体积和熵。则有：
+	\[
+		\left( \frac{\partial \mu}{\partial v} \right)_T = v \left( \frac{\partial p}{\partial v} \right)_T
+	\]
+	注意到$v = \frac{V}{\langle N \rangle}$，在体积不变而粒子数变化的情况下有：
+	\[
+		v\left( \frac{\partial p}{\partial v} \right)_T = \left( \frac{\partial \mu}{\partial \langle N \rangle} \right)_T \left( \frac{\partial \langle N \rangle}{\partial v} \right)_T = -\frac{\langle N \rangle^2}{V} \left( \frac{\partial \mu}{\partial N} \right)_{T,V}.
+	\]
+	则有：
+	\[
+		\frac{\Delta N}{\langle N \rangle} = \sqrt{\frac{kT}{\langle N \rangle^2} \left( \frac{\partial \langle N \rangle}{\partial \mu} \right)_{T,V}} = \sqrt{-\frac{kT}{V}\frac{1}{v}\left( \frac{\partial v}{\partial p} \right)_T} = \sqrt{\frac{kT\rho\kappa_T}{\langle N \rangle}}.
+	\]
+	\end{tcolorbox}
+\end{enumerate}
+\end{document}

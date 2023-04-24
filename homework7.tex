@@ -1,0 +1,221 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\allowdisplaybreaks[4] %align公式跨页
+\RequirePackage[most]{tcolorbox}
+\usepackage{xeCJK}
+\setCJKmainfont{Kai}
+
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等热力学与统计物理第七次作业}
+\author{董建宇}
+
+\begin{document}
+\maketitle
+
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+%\section{根据集团积分定义和图形展开的规则验证Mayer第一定理至$y^3$项}
+%\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+%要验证Mayer第一定理至$y^3$项，只需验证
+%\[
+%	\mathcal{Q} = \prod_{l} e^{Vb_l y^l}
+%\]
+%至$y^3$项。考虑等式右侧有：
+%\begin{align*}
+%	\prod_l e^{Vb_l y^l} =& \left( 1 + \sum_{i=1}^\infty \frac{(Vb_1y)^i}{i!} \right) \left( 1 + \sum_{j=1}^\infty \frac{(Vb_2y^2)^j}{j!} \right) \left( 1 + \sum_{k=1}^\infty \frac{(Vb_3y^3)^k}{k!} \right) \\
+%	=& \left( 1 + Vb_1y + \frac{(Vb_1y)^2}{2!} + \frac{(Vb_1y)^3}{31} \right) \left( 1 + Vb_2y^2 \right) \left( 1 + Vb_3y^3 \right) + \mathcal{O}(y^3) \\
+%	=& 1 + Vb_1y + \left( \frac{(Vb_1)^2}{2!} + Vb_2 \right) y^2 + \left( \frac{(Vb_1)^3}{3!} + V^2b_1b_2 + Vb_3 \right) y^3 + \mathcal{O}(y^4).
+%\end{align*}
+%考虑等式左侧可以计算
+%\[
+%	Q_V(N) = \int \prod_{k=1}^{N} \,d^3\vec{r}_k \prod_{1\leq i < j\leq N}(1+f_{ij}) = N! \sum_{\{n_l\}; \sum_l ln_l = N} \prod_l \frac{(Vb_l)^{n_l}}{n_l!}.
+%\]
+%则有：
+%\begin{align*}
+%	Q_V(0) =& 1, \\
+%	Q_V(1) =& Vb_1, \\
+%	Q_V(2) =& \frac{(Vb_1)^2}{2!} + Vb_2, \\
+%	Q_V(3) =& \frac{(Vb_1)^3}{3!} + V^2b_1b_2 + Vb_3.
+%\end{align*}
+%即巨配分函数为：
+%\begin{align*}
+%	\mathcal{Q} &= \sum_{N=0}^{\infty} \frac{y^N}{N!} Q_V(N) \\ 
+%	&= 1 + Vb_1y + \left( \frac{(Vb_1)^2}{2!} + Vb_2 \right) y^2 + \left( \frac{(Vb_1)^3}{3!} + V^2b_1b_2 + Vb_3 \right) y^3 + \mathcal{O}(y^4).
+%\end{align*}
+%即有：
+%\[
+%	\mathcal{Q} = \prod_{l} e^{Vb_l y^l}.
+%\]
+%所以Mayer第一定理得以验证。
+%\end{tcolorbox}
+
+\section{考虑在长度为L的一维线性匣子内的气体系统。两原子的相互作用能量是$u_{ij}$
+\[
+	u_{ij} = \left\{\begin{aligned}
+		&\infty &\vert x_{ij} \vert\leq d \\
+		&0 &\vert x_{ij} \vert > d
+	\end{aligned}\right.
+\]
+计算这个系统的前两个virial系数，并同准确的状态方程
+\[
+	\frac{P}{kT} = \frac{\rho}{1-\rho d}
+\]
+相比较。其中线密度$\rho = N/L$。
+}
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+由题意可知：
+\[
+	f_{ij} = e^{-\beta u_{ij}} - 1 = \left\{ \begin{aligned}
+		&-1, & \vert x_{ij} \vert \leq d; \\
+		&0, & \vert x_{ij} \vert > d.
+	\end{aligned}\right.
+\]
+由集团积分定义可计算：
+\begin{align*}
+	b_1 =& \frac{1}{1!L} \int \,dx_1 1 = 1, \\
+	b_2 =& \frac{1}{2!L} \int \,dx_1 \,dx_2 f_{12} = \frac{1}{2}\int_{-d}^d (-1)\,dx_{12} = -d, \\
+	b_3 =& \frac{1}{3!L} \int \,dx_1 \,dx_2 \,dx_3 (3f_{12}f_{13} + f_{12}f_{13}f_{23}) \\
+	=& \frac{1}{2} \left( \int_{-d}^d (-1)\,dx_{12} \right)^2 + \frac{1}{6} \int \,dx_{12}\,dx_{13} f_{12}(x_{12}) f_{13}(x_{13}) f_{23}(x_{12}-x_{13}) \\
+	=& 2d^2 - \frac{1}{2}d^2 = \frac{3}{2}d^2.
+\end{align*}
+根据Mayer第一定理，有： 
+\begin{align*}
+	&\frac{P}{kT} = b_1y + b_2y^2 + b_3y^3 + \mathcal{O}(y^4), \\
+	&\rho = b_1y + 2b_2y^2 + 3b_3y^3 + \mathcal{O}(y^4).
+\end{align*}
+利用级数反演可得：
+\[
+	y = \rho - 2b_2\rho^2 + (8b_2^2 - 3b_3)\rho^3 + \mathcal{O}(\rho^4).
+\]
+则有：
+\begin{align*}
+	\frac{P}{kT} =& \rho - b_2\rho^2 + (4b_2^2-2b_3)\rho^3 + \mathcal{O}(\rho^4) \\
+	=& \rho \left( 1 - \frac{1}{2}\beta_1\rho - \frac{2}{3}\beta_2\rho^2 + \mathcal{O}(\rho^3) \right).
+\end{align*}
+其中$\beta_1 = 2b_2 = -2d$; $\beta_2 = 3(b_3-2b_2^2) = -\frac{3}{2}d^2$。 \\
+对准确的状态方程展开可得：
+\[
+	\frac{P}{kT} = \rho\left( 1 + d\rho + d^2\rho^2 + \mathcal{O}(\rho) \right)
+\]
+则准确的状态方程给出的Virial系数为：
+\[
+	\beta_1' = -2d = \beta_1; ~~ \beta_2' = -\frac{3}{2}d^2 = \beta_2.
+\]
+\end{tcolorbox}
+
+
+\section{证明直径为$d$的硬球的三维经典气体的状态方程是
+\[
+	\frac{P}{kT} = \rho \left[ 1 + \frac{2}{3}\pi \rho d^3 + \frac{5}{18}\pi^2(\rho d^3)^2 + \mathcal{O}(\rho^3d^9) \right]
+\]
+试比较同一系统由Van der Waals 方程给出的$(\rho d^3)^2$的系数。
+}
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+直径为$d$的三维经典气体相互作用能为：
+\[
+	u_{ij} = \left\{\begin{aligned}
+		&\infty &\vert r_{ij} \vert\leq d \\
+		&0 &\vert r_{ij} \vert > d
+	\end{aligned}\right.
+\]
+则有：
+\[
+	f_{ij} = e^{-\beta u_{ij}} - 1 = \left\{ \begin{aligned}
+		&-1, & \vert r_{ij} \vert \leq d; \\
+		&0, & \vert r_{ij} \vert > d.
+	\end{aligned}\right.
+\]
+根据集团积分定义可以计算：
+\begin{align*}
+	\beta_1 =& \frac{1}{V} \int \,d^3\vec{r}_1\,d^3\vec{r}_2 f_{12} = \int_0^d -4\pi r_{12}^2\,dr_{12} = -\frac{4\pi d^3}{3}, \\
+	\beta_2 =& \frac{1}{2V} \int \,d^3\vec{r}_1 \,d^3\vec{r}_2 \,d^3\vec{r}_3 f_{12}f_{13}f_{23} = \frac{1}{2} \int \,d^3\vec{r}_{12} \int \,d^3\vec{r}_{13} f_{12}(\vec{r}_{12}) f_{13}(\vec{r}_{13}) f_{23}(\vec{r}_{13} - \vec{r}_{23}).
+\end{align*}
+注意到$I = -\int \,d^3\vec{r}_{13} f_{12}(\vec{r}_{12}) f_{13}(\vec{r}_{13}) f_{23}(\vec{r}_{13} - \vec{r}_{23})$表示半径为$d$，球心间距为$r_{12}$的球的相交部分的体积，则有：
+\[
+	I = \frac{2\pi}{3}d^3\left( 1-\frac{r_{12}}{2d} \right) - \frac{\pi}{6}r_{12} \left( d^2 - \frac{r_{12}^2}{4} \right) = \frac{4\pi}{3}d^3 - \pi d^2r_{12} + \frac{\pi}{12} r_{12}^3.
+\]
+则有：
+\[
+	\beta_2 = \frac{1}{2}\int_0^d 4\pi r_{12}^2\left( -\frac{\pi}{12}r_{12}^3 + \pi d^2r_{12} - \frac{4\pi}{3}d^3 \right)\,dr_{12} = -\frac{5\pi^2}{12}d^6.
+\]
+%\begin{align*}
+%	b_1 =& \frac{1}{V} \int \,d^3\vec{r}_1 = 1, \\
+%	b_2 =& \frac{1}{2!V} \int \,d^3\vec{r}_1\,d^3\vec{r}_2 f_{12} = \frac{1}{2}\int_0^d -4\pi r_{12}^2\,dr_{12} = -\frac{2\pi d^3}{3}, \\
+%	b_3 =& \frac{1}{3!V} \int \,d^3\vec{r}_1\,d^3\vec{r}_2\,d^3\vec{r}_3 (3f_{12}f_{13} + f_{12}f_{13}f_{23}) \\
+%	=& \frac{1}{2} \left( \int_0^d -4\pi r_{12}^2\,dr_{12} \right)^2
+%\end{align*}
+则状态方程为：
+\begin{align*}
+	\frac{P}{kT} =& \rho \left( 1-\frac{1}{2}\beta_1\rho-\frac{2}{3}\beta_2\rho^2 + \mathcal{O}(\rho^3) \right) \\
+	=& \rho \left[ 1 + \frac{2}{3}\pi \rho d^3 + \frac{5}{18}\pi^2(\rho d^3)^2 + \mathcal{O}(\rho^3d^9) \right].
+\end{align*}
+该系统对应的Van der Waals方程为：
+\[
+	P(V-Nb) = NkT
+\]
+则有：
+\[
+	\frac{P}{kT} = \frac{\rho}{1-\rho b} = \rho \left( 1+b \rho + b^2\rho^2 + \mathcal{\rho^3} \right).
+\]
+若二者关于$\rho^2$系数相等，则有：
+\[
+	b = \frac{2}{3}\pi d^3.
+\]
+但是注意到，对于三阶项，有：
+\[
+	b^2 = \frac{4}{9}\pi^2 d^6 > \frac{5}{18}\pi^2 d^6.
+\]
+\end{tcolorbox}
+
+\section{证明下列单原子非理想气体的能量与熵的公式
+\[
+	E = NkT \left[ \frac{3}{2} + T\sum_{k=1}^{\infty} \frac{1}{k+1} \frac{\partial \beta_k}{\partial T}\rho^k \right]
+\]
+\[
+	S = Nk \left\{ \ln\left[\left(\frac{mkT}{2\pi\hbar^3}\right)^{3/2} \frac{\omega}{\rho}\right] + \frac{5}{2} + \sum_{k=1}^\infty \frac{1}{k+1} \frac{\partial}{\partial T}(T\beta_k) \rho^k \right\}
+\]
+其中$\omega$为基态简并度，$\beta_1,\beta_2,\dots,\beta_k,\dots$为各阶不可约集团积分。
+}
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+气体状态方程为：
+\[
+	PV = NkT\left( 1-\sum_{k=1}^\infty \frac{k}{k+1}\beta_k\rho^k \right).
+\]
+经典易逸度满足：
+\[
+	\ln y = \ln \rho - \sum_{k=1}^\infty \beta_k\rho^k.
+\]
+则单个原子的化学式为：
+\[
+	\mu = kT\ln Z = kT \ln\frac{\lambda^3 y}{q} = kT\left[ \frac{3}{2} \ln \left(\frac{2\pi \hbar^2}{mkT}\right)  + \ln \rho - \sum_{k=1}^\infty \beta_k\rho^k - \ln q \right].
+\]
+则Gibbs势为：
+\[
+	G = N\mu = NkT \ln\frac{\lambda^3 y}{q} = NkT \left[ \frac{3}{2} \ln\left( \frac{2\pi \hbar^2}{mkT} \right) + \ln \rho - \sum_{k=1}^\infty \beta_k\rho^k - \ln q \right].
+\]
+自由能为：
+\[
+	F = G-PV = NkT\left[ \frac{3}{2} \ln\left( \frac{2\pi \hbar^2}{mkT} \right) + \ln \rho - \sum_{k=1}^\infty \frac{1}{k+1} \beta_k\rho^k - \ln q - 1 \right]
+\]
+则熵为：
+\[
+	S = \left( \frac{\partial F}{\partial T} \right)_{N,\rho} = Nk \left\{ \ln\left[\left(\frac{mkT}{2\pi\hbar^3}\right)^{3/2} \frac{\omega}{\rho}\right] + \frac{5}{2} + \sum_{k=1}^\infty \frac{1}{k+1} \frac{\partial}{\partial T}(T\beta_k) \rho^k \right\}
+\]
+其中$\omega = q$为基态简并度。 \\
+内能为：
+\[
+	E = F+TS = NkT \left[ \frac{3}{2} + T\sum_{k=1}^{\infty} \frac{1}{k+1} \frac{\partial \beta_k}{\partial T}\rho^k \right].
+\]
+\end{tcolorbox}
+\end{document}

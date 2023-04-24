@@ -1,0 +1,180 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\allowdisplaybreaks[4] %align公式跨页
+\RequirePackage[most]{tcolorbox}
+\usepackage{xeCJK}
+\setCJKmainfont{Kai}
+
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{高等热力学与统计物理第五次作业}
+\author{董建宇}
+
+\begin{document}
+\maketitle
+
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\section{证明体积为$V$，温度为$T$的辐射场有以下关系：
+\begin{align*}
+	E &= V\frac{\pi^2(kT)^4}{15(\hbar c)^3} \\
+	F &= -\frac{1}{3}E \\
+	S &= \frac{4E}{3T} \\
+	P &= \frac{1}{3}\frac{E}{V}
+\end{align*}}
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+对于辐射场有：化学式$\mu = 0$，能量动量关系为：$\epsilon = c\vert \vec{p} \vert = c\hbar \vert \vec{k} \vert$，服从波色分布，简并度为2。则计算粒子数有：
+\[
+	N = 2\sum_{\vec{k}} \frac{1}{e^{\beta\epsilon}-1} = 2\int \frac{V}{(2\pi)^3} 4\pi k^2\,dk \frac{1}{e^{\beta\epsilon}-1} = V \int \frac{\epsilon^2}{\pi^2(\hbar c)^3} \frac{1}{e^{\beta\epsilon}-1} \,d\epsilon.
+\]
+即态密度表达式为： 
+\[
+	D(\epsilon) = \frac{\epsilon^2}{\pi^2(\hbar c)^3}.
+\]
+则内能为：
+\[
+	E = V\int_0^{\infty} D(\epsilon)\frac{\epsilon}{e^{\beta\epsilon}-1}\,d\epsilon = \frac{V}{\pi^2(\hbar c)^3 \beta^4} \int_0^{\infty} \frac{x^3}{e^x-1}\,dx = \frac{V}{\pi^2(\hbar c)^3 \beta^4} \frac{\pi^4}{15} = V\frac{\pi^2(kT)^4}{15(\hbar c)^3}.
+\]
+其中$\beta = \frac{1}{kT}$，$x = \beta \epsilon$。 \\
+巨配分函数为：
+\[
+	\mathcal{Q} = \prod_{\vec{k}} \frac{1}{1-e^{-\beta\epsilon(\vec{k})}}.
+\]
+则系统压强为：
+\[
+	P = \frac{kT}{V}\ln\mathcal{Q} = -\frac{kT}{V}\sum_{\vec{k}} \ln(1-e^{-\beta\epsilon(\vec{k})}) = -\frac{kT}{\pi^2(\hbar c)^3}\int_0^{\infty}\epsilon^2\ln(1-e^{-\beta\epsilon})\,d\epsilon.
+\]
+计算上述积分：
+\begin{align*}
+	\mathbf{I} &= \int_0^{\infty} \epsilon^2 \ln(1-e^{-\beta\epsilon})\,d\epsilon = \int_0^{\infty} \ln(1-e^{-\beta\epsilon}) \,d(\epsilon^3/3) \\ 
+	&= \left. \frac{1}{3}\epsilon^3 \ln(1-e^{-\beta\epsilon}) \right\vert_0^{\infty} - \frac{\beta}{3}\int_0^{\infty} \frac{\epsilon^3}{e^{\beta\epsilon}-1}\,d\epsilon \\
+	&= -\frac{1}{3\beta^3}\int_0^{\infty} \frac{x^3}{e^x-1}\,dx = -\frac{1}{3\beta^3}\frac{\pi^4}{15}.
+\end{align*}
+则压强为：
+\[
+	P = \frac{1}{3}\frac{\pi^2(kT)^4}{15(\hbar c)^3} = \frac{1}{3}\frac{E}{V}.
+\]
+熵为：
+\[
+	S = \frac{PV+E}{T} = \frac{4}{3}\frac{E}{T}.
+\]
+Helmholtz自由能为：
+\[
+	F = E - TS = -\frac{1}{3}E.
+\]
+\end{tcolorbox}
+
+\section{考虑两维自旋为零的自由boson系统 \\
+(1) 推导单位面积的态密度公式； \\
+(2) 推导粒子数密度（面密度）用温度和易逸度表达的公式；\\
+(3) 证明此系统无凝聚现象}
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+\begin{enumerate}[(1)]
+\item 计算粒子数密度N:
+\[
+	N = \sum_{\vec{k}} \frac{1}{e^{\beta(\epsilon-\mu)}-1} = \int \frac{S}{(2\pi)^2} \,dk_x\,dk_y \frac{1}{e^{\beta(\epsilon-\mu)}-1} = S \int \frac{m}{2\pi\hbar^2} \frac{1}{e^{\beta(\epsilon-\mu)}-1} \,d\epsilon.
+\]
+则态密度表达式为：
+\[
+	D(\epsilon) = \frac{m}{2\pi\hbar^2}.
+\]
+
+\item 易逸度为：$z = e^{\beta\mu}$，则粒子数密度为：
+\[
+	\frac{N}{S} = \frac{m}{2\pi\hbar^2} \int_0^{\infty} \frac{ze^{-\beta\epsilon}}{1-ze^{-\beta\epsilon}}\,d\epsilon = \frac{mkT}{2\pi\hbar^2}\int_0^{\infty} \frac{ze^{-x}}{1-ze^{-x}}\,dx = -\frac{mkT}{2\pi\hbar^2} \ln(1-z).
+\]
+
+\item 假设该系统有凝聚现象，临界温度为$T_C$，基态能量为$0$，则当系统处在临界温度时，有$\mu \to \epsilon_0- = 0-$即$z \to 1-$：
+\[
+	N = \lim_{z\to 1-} \frac{Sm}{2\pi\hbar^2}\int_0^{\infty} \frac{ze^{-\epsilon'/(kT_C)}}{1-ze^{-\epsilon'/(kT_C)}}\,d\epsilon' = \lim_{z\to 1-} -\frac{SmkT_C}{2\pi\hbar^2} \ln(1-z) \to +\infty
+\]
+即假设不成立，所以该系统无凝聚现象。
+\end{enumerate}
+\end{tcolorbox}
+
+\section{证明在高温或低密度区域$(\rho\lambda^3 << 1)$，自旋为$j$的非相对论自由量子气体的状态方程和熵由下列两式给出：
+\[
+	PV = NkT\left[1 \pm \frac{\rho\lambda^3}{2^{5/2}(2j+1)} + \cdots \right]
+\]
+\[
+	S = Nk\ln\frac{(2j+1)e^{5/2}}{\rho\lambda^3}\pm Nk\frac{\rho\lambda^3}{2^{7/2}(2j+1)} + \cdots
+\]
+其中上边的符号对应于fermions，下边的符号对应于bosons，$\lambda$为热波长，$\cdots$代表$\rho\lambda^3$的更高阶项。
+}
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+对于自旋为$j$的非相对论自由量子气体，简并度为：$\omega = 2j+1$，则状态方程为：
+\[
+	\frac{P}{kT} = \frac{2j+1}{\lambda^3}\left( z \mp \frac{z^2}{2^{5/2}} + \cdots \right).
+\]
+其中易逸度满足：
+\[
+	\rho = \frac{N}{V} = \frac{2j+1}{\lambda^3}\left( z \mp \frac{z^2}{2^{3/2}} + \cdots \right).
+\]
+级数反演得：
+\[
+	z = \frac{\rho\lambda^3}{2j+1} \pm \frac{1}{2^{3/2}} \left( \frac{\rho\lambda^3}{2j+1} \right)^2 + \cdots.
+\]
+则状态方程可以写为：
+\[
+	\frac{P}{kT} = \frac{N}{V} \left( 1 \pm \frac{1}{2^{5/2}}\frac{\rho\lambda^3}{2j+1} + \cdots \right)
+\]
+理想费米（波色）气体的巨配分函数的对数为：
+\[
+	\ln \Xi = \pm \sum_l \omega_l \ln\left( 1 \pm e^{-\alpha-\beta\varepsilon_l} \right)
+\]
+即：
+\[
+	\ln \Xi = \pm g \frac{2\pi V (2m)^{3/2}}{h^3} \int \sqrt{\varepsilon} \ln\left( 1 \pm e^{-\alpha-\beta\varepsilon} \right)\,d\varepsilon .
+\]
+在弱兼并条件下，理想费米（波色）气体的压强为：
+\begin{align*}
+	p &= \frac{1}{\beta}\frac{\partial}{\partial V}\ln \Xi \\
+	&= \pm \frac{2\pi g(2m)^{3/2}}{h^3\beta} \int \sqrt{\varepsilon} \left( \pm e^{-\alpha-\beta\varepsilon} - \frac{1}{2}e^{-2\alpha-2\beta\varepsilon} \right) \,d\varepsilon \\
+	&= \frac{g(2\pi m)^{3/2}}{h^3\beta^{5/2}} e^{-\alpha} \left( 1 \mp \frac{1}{4\sqrt{2}}e^{-\alpha} \right) \\
+	&= \frac{NkT}{V} \left( 1 \pm \frac{1}{4\sqrt{2}}e^{-\alpha} \right)
+\end{align*}
+其中，利用玻尔兹曼分布近似有：
+\[
+	e^{-\alpha} = \frac{N}{V} \frac{h^3}{(2\pi m kT)^{3/2}} \frac{1}{g}.
+\]
+则理想费米（波色）气体的压强为：
+\[
+	p = \frac{NkT}{V} \left( 1 \pm \frac{1}{4\sqrt{2}}\frac{N}{V} \frac{h^3}{(2\pi m kT)^{3/2}} \frac{1}{g} \right).
+\]
+弱简并理想费米（波色）气体的内能为：
+\[
+	U = \frac{3}{2}NkT\left( 1 \pm \frac{1}{4\sqrt{2}}\frac{N}{V} \frac{h^3}{(2\pi m kT)^{3/2}} \frac{1}{g} \right).
+\]
+等容热熔为：
+\[
+	C_V = \left( \frac{\partial U}{\partial T} \right)_V = \frac{3}{2}Nk \left( 1 \mp \frac{1}{8\sqrt{2}}\frac{N}{V}\frac{h^3}{(2\pi mkT)^{3/2}} \frac{1}{g} \right)
+\]
+则弱简并理想费米（波色）气体的熵为：
+\begin{align*}
+	S &= \int \frac{C_V}{T}\,dT + S_0(V) \\
+	&= \frac{3}{2}Nk\left( \ln T \pm \frac{1}{12\sqrt{2}} \frac{N}{V} \frac{h^3}{(2\pi mkT)^{3/2}} \frac{1}{g} \right) + S_0(V).
+\end{align*}
+当$\frac{N}{V}\left( \frac{h}{\sqrt{2\pi mkT}} \right)^3 << 1$时，弱简并理想费米（波色）气体趋于经典理想气体，则有：
+\[
+	\frac{3}{2}Nk\ln T + S_0(V) = \frac{3}{2}Nk\ln T + Nk\ln \frac{gV}{N} + \frac{3}{2}Nk \left[ \frac{5}{3} + \ln\left( \frac{2\pi mk}{h^2} \right) \right]
+\]
+则弱简并理想费米（波色）气体的熵为：
+\[
+	S = Nk\left( \frac{5}{2} \pm \frac{1}{8\sqrt{2}}\frac{N}{V}\frac{h^3}{(2\pi mkT)^{3/2}}\frac{1}{g} + \frac{3}{2}\ln \frac{2\pi mkT}{h^2} + \ln \frac{gV}{N} \right).
+\]
+其中$g = \omega = 2j+1$，则有：
+\[
+	S = Nk\ln \frac{(2j+1)e^{5/2}}{\rho\lambda^3} \pm Nk \frac{\rho\lambda^3}{2^{7/2}(2j+1)} + \cdots.
+\]
+\end{tcolorbox}
+\end{document}
